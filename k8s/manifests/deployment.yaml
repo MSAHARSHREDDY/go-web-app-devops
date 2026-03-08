@@ -1,0 +1,74 @@
+#A Kubernetes Deployment is a Kubernetes resource used to automatically create, manage, and update Pods while ensuring the desired number of replicas are always running in Kubernetes.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-web-app
+  labels:
+    app: go-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-web-app
+  template:
+    metadata:
+      labels:
+        app: go-web-app
+    spec:
+      containers:
+      - name: go-web-app
+        image: malladisaharshreddy/go-web-app:v1
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
+
+# This manifest creates a Deployment for a simple Go web application in Kubernetes.
+#
+# apiVersion – Specifies the Kubernetes API version used to create the resource.
+# apps/v1 – API group used for workload resources like Deployments.
+#
+# kind – Defines the type of Kubernetes resource being created.
+# Deployment – A controller that manages Pods and ensures the desired number of replicas are running.
+#
+# metadata – Contains identifying information about the resource.
+# name – Unique name of the deployment in the Kubernetes cluster.
+# go-web-app – The name of the deployment managing the Go web application.
+#
+# labels – Key-value pairs used to organize and identify Kubernetes resources.
+# app: go-web-app – Label used to identify resources belonging to this application.
+#
+# spec – Defines the desired configuration and behavior of the deployment.
+#
+# replicas – Number of Pod instances Kubernetes should maintain.
+# 1 – Only one Pod of the application will run.
+#
+# selector – Determines which Pods are managed by this deployment.
+# matchLabels – Selects Pods that have matching labels.
+# app: go-web-app – Label used to match Pods created by this deployment.
+#
+# template – Blueprint used to create Pods.
+#
+# metadata (inside template) – Metadata applied to Pods created by this deployment.
+# labels – Labels attached to the Pods.
+# app: go-web-app – Identifies the Pod as part of the Go web application.
+#
+# spec (inside template) – Defines how the Pod should run.
+#
+# containers – List of containers running inside the Pod.
+#
+# name – Name of the container.
+# go-web-app – Container running the Go web application.
+#
+# image – Docker image used to create the container.
+# malladisaharshreddy/go-web-app – Image containing the Go web application.
+#
+# ports – Defines network ports exposed by the container.
+# containerPort – Port inside the container where the application listens.
+# 8081 – The Go web application runs on port 8081 inside the container.

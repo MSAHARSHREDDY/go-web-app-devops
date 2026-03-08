@@ -1,0 +1,53 @@
+#A Kubernetes Service is used to expose and provide a stable network endpoint for Pods in Kubernetes.
+
+#Pods can start, stop, or change IP, so a Service gives a fixed IP and DNS name that other applications can use to communicate with them.
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-web-app
+  labels:
+    app: go-web-app
+spec:
+  ports:
+  - port: 80
+    targetPort: 8081
+    protocol: TCP
+  selector:
+    app: go-web-app
+  type: ClusterIP
+
+
+
+# This manifest creates a Service to expose the Go web application inside the Kubernetes cluster.
+#
+# apiVersion – Specifies the Kubernetes API version used to create the resource.
+# v1 – Core API version used for basic resources like Services, Pods, and ConfigMaps.
+#
+# kind – Defines the type of Kubernetes resource being created.
+# Service – A networking resource that exposes Pods and provides a stable endpoint for them.
+#
+# metadata – Contains identifying information about the resource.
+# name – Unique name used to identify the service in the cluster.
+# go-web-app – The name of the service that exposes the Go web application.
+#
+# labels – Key-value pairs used to organize and identify Kubernetes resources.
+# app: go-web-app – Label used to identify resources belonging to this application.
+#
+# spec – Defines the configuration of the service.
+#
+# ports – Defines the ports that the service will expose.
+#
+# port – Port on which the service will be accessible inside the cluster.
+# 80 – Other services or applications will access this service using port 80.
+#
+# targetPort – Port on the container where the application is running.
+# 8081 – Requests received on port 80 will be forwarded to container port 8081.
+#
+# protocol – Network protocol used for communication.
+# TCP – The service communicates using TCP protocol.
+#
+# selector – Defines which Pods this service should forward traffic to.
+# app: go-web-app – The service routes traffic to Pods with this label.
+#
+# type – Specifies how the service is exposed.
+# ClusterIP – Service is accessible only inside the Kubernetes cluster.

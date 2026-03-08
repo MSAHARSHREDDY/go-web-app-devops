@@ -1,0 +1,68 @@
+#An Kubernetes Ingress is used to expose HTTP/HTTPS applications from outside the cluster and route traffic to Services inside Kubernetes
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: go-web-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: go-web-app.local
+    http:
+      paths: 
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: go-web-app
+            port:
+              number: 80
+
+
+
+# This manifest creates an Ingress resource to expose the Go web application outside the Kubernetes cluster.
+#
+# apiVersion – Specifies the Kubernetes API version used to create the resource.
+# networking.k8s.io/v1 – API group used for networking resources like Ingress.
+#
+# kind – Defines the type of Kubernetes resource being created.
+# Ingress – A resource that manages external HTTP/HTTPS access to services inside the cluster.
+#
+# metadata – Contains identifying information about the resource.
+# name – Unique name used to identify the Ingress resource.
+# go-web-app – Name of the Ingress routing traffic to the Go web application.
+#
+# annotations – Additional configuration used by the Ingress controller.
+# nginx.ingress.kubernetes.io/rewrite-target – Annotation used by the NGINX Ingress controller to rewrite the request path.
+# / – Requests will be rewritten to the root path before reaching the service.
+#
+# spec – Defines how traffic should be routed.
+#
+# ingressClassName – Specifies which Ingress controller should handle this Ingress resource.
+# nginx – Uses the NGINX Ingress controller to manage routing.
+#
+# rules – Defines routing rules for incoming traffic.
+#
+# host – Domain name used to access the application.
+# go-web-app.local – Requests sent to this hostname will be routed to the application.
+#
+# http – Defines HTTP routing rules.
+#
+# paths – List of URL paths that should be routed.
+#
+# path – URL path pattern used for routing.
+# / – Matches all incoming requests starting with "/".
+#
+# pathType – Defines how the path should be matched.
+# Prefix – Matches all requests with the specified prefix.
+#
+# backend – Defines the service where traffic should be forwarded.
+#
+# service – Kubernetes Service receiving the traffic.
+# name – Name of the service that the request will be sent to.
+# go-web-app – The service that exposes the Go web application.
+#
+# port – Service port that will receive the traffic.
+# number – Port number exposed by the service.
+# 80 – Requests are forwarded to service port 80.
